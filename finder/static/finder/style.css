@@ -53,17 +53,17 @@ div.search-area {
     border: 1px solid #ffffff;
     border-radius: 5px;
 }
-div.search-area>div {
+form>div {
     margin: 20px 0 20px 10px;
+}
+div.top {
+    display: flex;
 }
 div.site {
     width: 25vw;
-    float: left;
 }
 div.category {
     width: 25vw;
-    /* width: 300px; */
-    padding-left: 320px;
 }
 div.search-button {
     font-size: 16px;

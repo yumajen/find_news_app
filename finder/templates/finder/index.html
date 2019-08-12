@@ -1,84 +1,57 @@
 {% load static %}
+{% load widget_tweaks %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'finder/style.css' %}">
 
 <h1 class="main-title">Find your interested news</h1>
 <h3>Search</h3>
 <div class="search-area">
-    <div class="site">
-        <label>サイト名：</label>
-        <select name="site-name">
-            <option value="" selected>選択してください</option>
-            <option value="0">Yahoo!ニュース</option>
-            <option value="1">Googleニュース</option>
-            <option value="2">ニコニコニュース</option>
-            <option value="3">ニュートピ！</option>
-        </select>
-    </div>
-    <div class="category">
-        <label>カテゴリ：</label>
-        <select name="category-name">
-            <option value="" selected>選択してください</option>
-            <option value="0">主要</option>
-            <option value="1">国内</option>
-            <option value="2">国際</option>
-            <option value="3">経済</option>
-            <option value="4">エンタメ</option>
-            <option value="5">スポーツ</option>
-            <option value="6">IT</option>
-            <option value="7">化学</option>
-            <option value="8">ライフ</option>
-            <option value="9">地域</option>
-        </select>
-    </div>
-    <div class="search-word">
-        <label>検索ワード：</label>
-        <input class="word" type="text" name="word" value="">
-    </div>
-    <div class="search-term">
-        <label>取得期間：</label>
-        <input class="date" type="date" name="word" value=""> 〜
-        <input class="date" type="date" name="word" value="">
-    </div>
-    <div class="search-button">
-        <button type="button" name="button">検索</button>
-    </div>
+    <form method="post" action="">
+        <div class="top">
+            <div class="site">
+                {{ form.site_name.label }}
+                {{ form.site_name }}
+            </div>
+            <div class="category">
+                {{ form.category_name.label }}
+                {{ form.category_name }}
+            </div>
+        </div>
+        <div class="search-word">
+            {{ form.search_word.label}}
+            {{ form.search_word|add_class:"word"}}
+        </div>
+        <div class="search-term">
+            {{ form.search_term_start.label}}
+            {{ form.search_term_start|add_class:"date"}}
+            〜 {{ form.search_term_end|add_class:"date"}}
+        </div>
+        <div class="search-button">
+            <button type="button" name="button">検索</button>
+        </div>
+    </form>
 </div>
 <h3>Articles</h3>
-<div class="article-area">
-    <table border=2>
-        <tr>
+{% if articles %}
+    <div class="article-area">
+        <table border=2>
+            <tr>
             <th>Title</th>
             <th>URL</th>
             <th>Date published</th>
-        </tr>
-        <tr>
-            <td>安倍首相、イランに到着　ロウハニ大統領と会談</td>
-            <td><a href="https://news.yahoo.co.jp/pickup/6326532">https://news.yahoo.co.jp/pickup/6326532</a></td>
-            <td>2019/6/12 23:23</td>
-        </tr>
-        <tr>
-            <td>元G投手 証券会社幹部立件へ</td>
-            <td><a href="https://news.yahoo.co.jp/pickup/6326542">https://news.yahoo.co.jp/pickup/6326542</a></td>
-            <td>2019/6/13 7:42</td>
-        </tr>
-        <tr>
-            <td>曲折経た八ッ場ダム 来春完成</td>
-            <td><a href="https://news.yahoo.co.jp/pickup/6326507">https://news.yahoo.co.jp/pickup/6326507</a></td>
-            <td>2019/6/12 19:08</td>
-        </tr>
-        <tr>
-            <td>久保建英 バルサと再交渉へ</td>
-            <td><a href="https://news.yahoo.co.jp/pickup/6326541">https://news.yahoo.co.jp/pickup/6326541</a></td>
-            <td>2019/6/13 7:40</td>
-        </tr>
-        <tr>
-            <td>大雨警戒レベル いったいなに</td>
-            <td>掲載期間を過ぎています</td>
-            <td class="expired">2019/6/6 18:49</td>
-        </tr>
-    </table>
-</div>
+            </tr>
+            {% for article in articles %}
+                <tr>
+                    <td>{{article.title}}</td>
+                    <td><a href="{{article.url}}">{{article.url}}</a></td>
+                    <td>{{article.published_at}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% else %}
+    <p>条件に該当する記事がありません</p>
+{% endif%}
 <div class="admin-login">
     <a href="admin.html">管理者ログイン</a>
 </div>
