@@ -25,10 +25,20 @@ class SearchConditions(forms.Form):
 
     search_term_start = forms.DateField(
         label='取得期間：',
+        widget=forms.DateInput(
+            attrs={
+                "type": "date"
+            }
+        ),
         initial=datetime.date.today
     )
 
     search_term_end = forms.DateField(
+        widget=forms.DateInput(
+            attrs={
+                "type": "date"
+            }
+        ),
         initial=datetime.date.today
     )
 
